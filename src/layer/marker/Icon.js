@@ -2,6 +2,7 @@ import {Class} from '../../core/Class';
 import {setOptions} from '../../core/Util';
 import {toPoint as point} from '../../geometry/Point';
 import Browser from '../../core/Browser';
+import 'lazysizes';
 
 /*
  * @class Icon
@@ -81,7 +82,8 @@ export var Icon = Class.extend({
 		// Whether the crossOrigin attribute will be added to the tiles.
 		// If a String is provided, all tiles will have their crossOrigin attribute set to the String provided. This is needed if you want to access tile pixel data.
 		// Refer to [CORS Settings](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) for valid String values.
-		crossOrigin: false
+		crossOrigin: false,
+		lazyImages: true,
 	},
 
 	initialize: function (options) {
@@ -133,7 +135,7 @@ export var Icon = Class.extend({
 		    anchor = point(name === 'shadow' && options.shadowAnchor || options.iconAnchor ||
 		            size && size.divideBy(2, true));
 
-		img.className = 'leaflet-marker-' + name + ' ' + (options.className || '');
+		img.className = `leaflet-marker-${name} ${options.className || ''} ${options.lazyImages ? 'lazyload' : ''}`;
 
 		if (anchor) {
 			img.style.marginLeft = (-anchor.x) + 'px';
@@ -148,7 +150,11 @@ export var Icon = Class.extend({
 
 	_createImg: function (src, el) {
 		el = el || document.createElement('img');
-		el.src = src;
+		if (this.options.lazyImages) {
+			el['data-src'] = src;
+		} else {
+			el.src = src;
+		}
 		return el;
 	},
 
