@@ -32,6 +32,7 @@
     -moz-transform-origin: 50% 50%;
 	-o-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
+	z-index: 1280;
 }
 .leaflet-marker-container {
 	transition-property: transform;

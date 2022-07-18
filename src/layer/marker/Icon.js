@@ -150,7 +150,7 @@ export var Icon = Class.extend({
 			img.style.marginLeft = (-anchor.x) + 'px';
 			img.style.marginTop  = (-anchor.y) + 'px';
 		}
-
+		// img.style.zIndex = 128;
 		if (size) {
 			img.style.width  = size.x + 'px';
 			img.style.height = size.y + 'px';
@@ -160,7 +160,7 @@ export var Icon = Class.extend({
 	_createImg: function (src, el) {
 		el = el || document.createElement('img');
 		if (this.options.lazyImages) {
-			el['data-src'] = src;
+			el.setAttribute('data-src', src);
 		} else {
 			el.src = src;
 		}
