@@ -2,6 +2,7 @@
 
 .leaflet-pane,
 .leaflet-tile,
+.leaflet-marker-icon-container,
 .leaflet-marker-icon,
 .leaflet-marker-shadow,
 .leaflet-tile-container,
@@ -25,6 +26,18 @@
 	        user-select: none;
 	  -webkit-user-drag: none;
 	}
+
+.leaflet-marker-icon {
+	-webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+.leaflet-marker-container {
+	transition-property: transform;
+    transition-timing-function: ease;
+	transition-duration: 1.0s;
+}
 /* Prevents IE11 from highlighting tiles in blue */
 .leaflet-tile::selection {
 	background: transparent;

@@ -84,6 +84,7 @@ export var Icon = Class.extend({
 		// Refer to [CORS Settings](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) for valid String values.
 		crossOrigin: false,
 		lazyImages: true,
+		useContainer: true,
 	},
 
 	initialize: function (options) {
@@ -92,6 +93,7 @@ export var Icon = Class.extend({
 
 	// @method createIcon(oldIcon?: HTMLElement): HTMLElement
 	// Called internally when the icon has to be shown, returns a `<img>` HTML element
+	// or an `<img>` HTML element inside a `<div>` HTML element.
 	// styled according to the options.
 	createIcon: function (oldIcon) {
 		return this._createIcon('icon', oldIcon);
@@ -119,10 +121,17 @@ export var Icon = Class.extend({
 		if (this.options.crossOrigin || this.options.crossOrigin === '') {
 			img.crossOrigin = this.options.crossOrigin === true ? '' : this.options.crossOrigin;
 		}
-
+		if (this.options.useContainer) {
+			return this._createImgContainer(img, name);
+		}
 		return img;
 	},
-
+	_createImgContainer: function (img, name, el) {
+		el = el || document.createElement('div');
+		el.className = 'leaflet-marker-container';
+		el.appendChild(img);
+		return el;
+	},
 	_setIconStyles: function (img, name) {
 		var options = this.options;
 		var sizeOption = options[name + 'Size'];
