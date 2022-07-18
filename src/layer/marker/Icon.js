@@ -160,7 +160,7 @@ export var Icon = Class.extend({
 	_createImg: function (src, el) {
 		el = el || document.createElement('img');
 		if (this.options.lazyImages) {
-			el.setAttribute('data-src', src);
+			el.dataset.src = src;
 		} else {
 			el.src = src;
 		}
